@@ -1,0 +1,5 @@
+{
+    "board": "adafruit:nrf52:itsybitsy52840",
+    "configuration": "softdevice=s140v6,debug=l0",
+    "sketch": "SF06\\totalizer\\totalizer.ino"
+}
