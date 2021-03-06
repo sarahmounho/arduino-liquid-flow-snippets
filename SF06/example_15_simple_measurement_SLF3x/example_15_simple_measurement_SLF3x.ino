@@ -45,9 +45,9 @@
 // -----------------------------------------------------------------------------
 
 const int ADDRESS = 0x08; // Sensor I2C Address
-const float SCALE_FACTOR_FLOW = 500.0; // Scale Factor for flow rate measurement
+const float SCALE_FACTOR_FLOW = 10; // Scale Factor for flow rate measurement (500.0)
 const float SCALE_FACTOR_TEMP = 200.0; // Scale Factor for temperature measurement
-const char *UNIT_FLOW = " ml/min"; //physical unit of the flow rate measurement
+const char *UNIT_FLOW = " ul/min"; //physical unit of the flow rate measurement
 const char *UNIT_TEMP = " deg C"; //physical unit of the temperature measurement
 
 // -----------------------------------------------------------------------------
@@ -58,7 +58,6 @@ void setup() {
 
   Serial.begin(9600); // initialize serial communication
   Wire.begin();       // join i2c bus (address optional for master)
-
   do {
     // Soft reset the sensor
     Wire.beginTransmission(0x00);
@@ -98,6 +97,7 @@ void loop() {
   Wire.write(0x08);
   ret = Wire.endTransmission();
   if (ret != 0) {
+    digitalWrite(LED_BUILTIN, LOW); 
     Serial.println("Error during write measurement mode command");
 
   } else {
@@ -156,6 +156,5 @@ void loop() {
       Serial.println("Error during write measurement mode command");
     }
   }
-
   delay(1000); // milliseconds delay between reads (for demo purposes)
 }
